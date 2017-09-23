@@ -12,8 +12,23 @@ public class SetOperations {
 	
 	private SinglyLinkedList universeList;
 	
-	public void addList() {
+	public SetOperations (String[] universe) {
+		for (int i = 0; i < universe.length; i++) {
+			universeList.add(universe[i]);
+		}
+	}
+	
+	public void addSet() {
 		
 	}
+	
+	public SinglyLinkedList getSetsList() {
+		return setsList;
+	}
+
+	public SinglyLinkedList getUniverseList() {
+		return universeList;
+	}
+
 	
 }
