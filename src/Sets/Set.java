@@ -9,15 +9,33 @@ import LinkedLists.SLNode;
  */
 public class Set {
 
+	/**
+	 * Acts as a bit map for the existance of the elements in this set
+	 * in the universe that it belongs to.
+	 */
 	private boolean[] setBool;
+	
+	/**
+	 * List of items in the set in SLL form.
+	 */
+	private SinglyLinkedList setList;
+
+	/**
+	 * Getter for setList.
+	 * @return setList as SLL.
+	 */
+	public SinglyLinkedList getSetList() {
+		return setList;
+	}
 
 	/**
 	 * Constructor.
 	 * @param universe in a SLL form.
 	 * @param setList in a SLL form.
 	 */
-	public Set(SinglyLinkedList universe, SinglyLinkedList setList) {
+	public Set(final SinglyLinkedList universe, final SinglyLinkedList setInput) {
 		makeBoolSet(universe, setList);
+		this.setList = setInput;
 	}
 
 	/**

@@ -8,7 +8,12 @@ import LinkedLists.SinglyLinkedList;
  */
 public class SetOperations {
 	
-	SinglyLinkedList setsList;
+	private SinglyLinkedList setsList;
 	
+	private SinglyLinkedList universeList;
+	
+	public void addList() {
+		
+	}
 	
 }
