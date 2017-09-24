@@ -23,6 +23,9 @@ public class Subset extends Set {
 		return setBool;
 	}
 
+	/**
+	 * The universe that this subset belongs to.
+	 */
 	private Universe universe;
 	
 	
@@ -53,9 +56,34 @@ public class Subset extends Set {
 		}
 	}
 	
+	/**
+	 * Constructor that calls the super "Set" constructor
+	 * to build the SLL of set.
+	 * @param universeIn universe as object.
+	 * @param setInput set content input as string array.
+	 */
 	public Subset(final Universe universeIn, final String[] setInput) {
 		super(setInput);
+		makeBoolSet(universeIn.getSetList(), this.getSetList());
 		this.universe = universeIn;
+	}
+
+	@Override
+	public Set union(Set other) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set intersection(Set other) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Set complement() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

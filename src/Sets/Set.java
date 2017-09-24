@@ -1,11 +1,9 @@
 package Sets;
 
 import LinkedLists.SinglyLinkedList;
-import LinkedLists.SLNode;
 
 /**
- * @author H
- * This class represents sets.
+ * @author H This class represents sets.
  */
 public abstract class Set {
 
@@ -16,6 +14,7 @@ public abstract class Set {
 
 	/**
 	 * Getter for setList.
+	 * 
 	 * @return setList as SLL.
 	 */
 	public SinglyLinkedList getSetList() {
@@ -24,19 +23,50 @@ public abstract class Set {
 
 	/**
 	 * Constructor.
-	 * @param universe in a SLL form.
-	 * @param setList in a SLL form.
+	 * 
+	 * @param universe
+	 *            in a SLL form.
+	 * @param setList
+	 *            in a SLL form.
 	 */
 	public Set(final String[] setInput) {
 		this.setList = makeSLL(setInput);
 	}
-	
-	private SinglyLinkedList makeSLL(final String[] setArr) {
+
+	/**
+	 * Creates a SinglyLinkedList of the given array.
+	 * @param setArr any array of any object type.
+	 * Usually, the param is a String array.
+	 * @return SLL generated that has the same elements as the
+	 * input array.
+	 */
+	private SinglyLinkedList makeSLL(final Object[] setArr) {
 		SinglyLinkedList setSLL = new SinglyLinkedList();
 		for (int i = 0; i < setArr.length; i++) {
 			setSLL.add(setArr[i]);
 		}
 		return setSLL;
 	}
+
+	/**
+	 * Gets the union of this set and another.
+	 * @param other input set.
+	 * @return union set.
+	 */
+	public abstract Set union(Set other);
+
+	/**
+	 * Gets the intersection of this set and another.
+	 * @param other input set.
+	 * @return intersection set.
+	 */
+	public abstract Set intersection(Set other);
+
+	/**
+	 * Finds the rest of the elements in the universe
+	 * not existing in the set.
+	 * @return complement of a set
+	 */
+	public abstract Set complement();
 
 }
