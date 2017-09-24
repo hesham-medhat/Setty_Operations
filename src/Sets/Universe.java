@@ -11,20 +11,17 @@ public class Universe extends Set {
 	}
 
 	@Override
-	public Set union(Set other) {
-		// TODO Auto-generated method stub
-		return null;
+	public Set union(Set other, boolean secondCall) {
+		return this;
 	}
 
 	@Override
-	public Set intersection(Set other) {
-		// TODO Auto-generated method stub
-		return null;
+	public Set intersection(Set other, boolean secondCall) {
+		return other;
 	}
 
 	@Override
 	public Set complement() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

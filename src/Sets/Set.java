@@ -1,5 +1,6 @@
 package Sets;
 
+import LinkedLists.SLNode;
 import LinkedLists.SinglyLinkedList;
 
 /**
@@ -32,6 +33,23 @@ public abstract class Set {
 	public Set(final String[] setInput) {
 		this.setList = makeSLL(setInput);
 	}
+	
+	/**
+	 * Constructor in case we know the boolean set.
+	 * @param universeIn universe of the set.
+	 * @param setBoolIn boolean array of existance of elements from universe.
+	 */
+	public Set(final Universe universeIn, final boolean[] setBoolIn) {
+		SinglyLinkedList setListBuilder = new SinglyLinkedList();
+		SLNode SLNUI = universeIn.getSetList().getHead();
+		for (int i = 0; i < setBoolIn.length; i++) {
+			if (setBoolIn[i]) {
+				setListBuilder.add(SLNUI.getElement());
+			}
+			SLNUI = SLNUI.getNext();
+		}
+		this.setList = setListBuilder;
+	}
 
 	/**
 	 * Creates a SinglyLinkedList of the given array.
@@ -53,14 +71,14 @@ public abstract class Set {
 	 * @param other input set.
 	 * @return union set.
 	 */
-	public abstract Set union(Set other);
+	public abstract Set union(Set other, boolean secondCall);
 
 	/**
 	 * Gets the intersection of this set and another.
 	 * @param other input set.
 	 * @return intersection set.
 	 */
-	public abstract Set intersection(Set other);
+	public abstract Set intersection(Set other, boolean secondCall);
 
 	/**
 	 * Finds the rest of the elements in the universe

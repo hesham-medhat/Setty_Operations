@@ -68,16 +68,53 @@ public class Subset extends Set {
 		this.universe = universeIn;
 	}
 
-	@Override
-	public Set union(Set other) {
-		// TODO Auto-generated method stub
-		return null;
+	public Subset(final Universe universeIn, final boolean[] setBoolIn) {
+		super(universeIn, setBoolIn);
+		this.universe = universeIn;
 	}
 
 	@Override
-	public Set intersection(Set other) {
-		// TODO Auto-generated method stub
-		return null;
+	public Set union(Set other, boolean secondCall) {
+		if (!secondCall) {
+			return other.union(this, true);
+		} else {
+			boolean[] otherBool = ((Subset) other).getSetBool();
+			if (otherBool.length != this.setBool.length) {
+				throw new RuntimeException("Error: Different universes.");
+			}
+			boolean[] newSetBool = new boolean[setBool.length];
+			for (int i = 0; i < this.setBool.length; i++) {
+				if (setBool[i] || otherBool[i]) {
+					newSetBool[i] = true;
+				} else {
+					newSetBool[i] = false;
+				}
+			}
+			Subset unionSet = new Subset(universe, newSetBool);
+			return unionSet;
+		}
+	}
+
+	@Override
+	public Set intersection(Set other, boolean secondCall) {
+		if (!secondCall) {
+			return other.union(this, true);
+		} else {
+			boolean[] otherBool = ((Subset) other).getSetBool();
+			if (otherBool.length != this.setBool.length) {
+				throw new RuntimeException("Error: Different universes.");
+			}
+			boolean[] newSetBool = new boolean[setBool.length];
+			for (int i = 0; i < this.setBool.length; i++) {
+				if (setBool[i] && otherBool[i]) {
+					newSetBool[i] = true;
+				} else {
+					newSetBool[i] = false;
+				}
+			}
+			Subset intersectionSet = new Subset(universe, newSetBool);
+			return intersectionSet;
+		}
 	}
 
 	@Override
