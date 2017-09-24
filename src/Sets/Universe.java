@@ -1,12 +1,14 @@
-/**
- * 
- */
 package Sets;
 
 /**
- * @author A2HP11
+ * 
  *
  */
 public class Universe extends Set {
 
+	public Universe(final String[] setInput) {
+		super(setInput);
+		// TODO Auto-generated constructor stub
+	}
+	
 }
