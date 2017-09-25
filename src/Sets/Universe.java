@@ -54,7 +54,11 @@ public class Universe extends Set {
 
 	@Override
 	public Set intersection(final Set other) {
-		return other;
+		if (other instanceof Universe) {
+			return new Universe(this.getSetList());
+		} else {
+			return new Subset(this, ((Subset) other).getSetBool());
+		}
 	}
 
 	@Override

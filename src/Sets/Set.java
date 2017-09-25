@@ -59,6 +59,7 @@ public abstract class Set {
 	 * Finds the rest of the elements in the universe not existing in the set.
 	 *
 	 * @return complement of a set
+	 * Returns null if the output set is empty.
 	 */
 	public abstract Set complement();
 
@@ -68,6 +69,7 @@ public abstract class Set {
 	 * @param other
 	 *            input set.
 	 * @return the difference.
+	 * Returns null if the output set is empty.
 	 */
 	public abstract Set difference(Set other);
 
@@ -86,6 +88,7 @@ public abstract class Set {
 	 * @param other
 	 *            input set.
 	 * @return intersection set.
+	 * Returns null if the output set is empty.
 	 */
 	public abstract Set intersection(Set other);
 
@@ -111,6 +114,7 @@ public abstract class Set {
 	 * @param other
 	 *            input set.
 	 * @return union set.
+	 * Returns null if the output set is empty.
 	 */
 	public abstract Set union(Set other);
 
