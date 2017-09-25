@@ -1,9 +1,12 @@
-package Sets;
+package application;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import LinkedLists.SinglyLinkedList;
+import Sets.Set;
+import Sets.Subset;
+import Sets.Universe;
 
 /**
  * Contains the main method and runs the application.

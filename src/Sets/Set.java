@@ -71,14 +71,14 @@ public abstract class Set {
 	 * @param other input set.
 	 * @return union set.
 	 */
-	public abstract Set union(Set other, boolean secondCall);
+	public abstract Set union(Set other);
 
 	/**
 	 * Gets the intersection of this set and another.
 	 * @param other input set.
 	 * @return intersection set.
 	 */
-	public abstract Set intersection(Set other, boolean secondCall);
+	public abstract Set intersection(Set other);
 
 	/**
 	 * Finds the rest of the elements in the universe

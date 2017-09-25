@@ -1,9 +1,8 @@
 package Sets;
 
-import LinkedLists.SinglyLinkedList;
-
 /**
  * This class represents the universe.
+ * 
  * @author H
  */
 public class Universe extends Set {
@@ -16,12 +15,12 @@ public class Universe extends Set {
 	}
 
 	@Override
-	public Set union(Set other, boolean secondCall) {
+	public Set union(Set other) {
 		return this;
 	}
 
 	@Override
-	public Set intersection(Set other, boolean secondCall) {
+	public Set intersection(Set other) {
 		return other;
 	}
 
@@ -29,5 +28,5 @@ public class Universe extends Set {
 	public Set complement() {
 		return null;
 	}
-	
+
 }
