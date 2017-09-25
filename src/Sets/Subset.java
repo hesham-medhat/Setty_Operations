@@ -10,10 +10,36 @@ import LinkedLists.SinglyLinkedList;
 public class Subset extends Set {
 
 	/**
-	 * Acts as a bit map for the existance of the elements in this set
+	 * Acts as a bit map for the existence of the elements in this set
 	 * in the universe that it belongs to.
 	 */
 	private boolean[] setBool;
+
+	/**
+	 * The universe that this subset belongs to.
+	 */
+	private Universe universe;
+		
+	/**
+	 * Constructor that calls the super "Set" constructor
+	 * to build the SLL of set.
+	 * @param universeIn universe as object.
+	 * @param setInput set content input as string array.
+	 */
+	public Subset(final Universe universeIn, final String[] setInput) {
+		super(setInput);
+		makeBoolSet(universeIn.getSetList(), this.getSetList());
+		this.universe = universeIn;
+	}
+
+	/**
+	 * @param universeIn
+	 * @param setBoolIn
+	 */
+	public Subset(final Universe universeIn, final boolean[] setBoolIn) {
+		super(universeIn, setBoolIn);
+		this.universe = universeIn;
+	}
 	
 	/**
 	 * Getter for setBool.
@@ -22,20 +48,7 @@ public class Subset extends Set {
 	public boolean[] getSetBool() {
 		return setBool;
 	}
-
-	/**
-	 * The universe that this subset belongs to.
-	 */
-	private Universe universe;
 	
-	
-	/**
-	 * @return the universe
-	 */
-	public Universe getUniverse() {
-		return universe;
-	}
-
 	/**
 	 * Constructs the setBool to be ready for operations.
 	 * @param universe in a SLL form.
@@ -56,71 +69,83 @@ public class Subset extends Set {
 		}
 	}
 	
-	/**
-	 * Constructor that calls the super "Set" constructor
-	 * to build the SLL of set.
-	 * @param universeIn universe as object.
-	 * @param setInput set content input as string array.
-	 */
-	public Subset(final Universe universeIn, final String[] setInput) {
-		super(setInput);
-		makeBoolSet(universeIn.getSetList(), this.getSetList());
-		this.universe = universeIn;
-	}
-
-	public Subset(final Universe universeIn, final boolean[] setBoolIn) {
-		super(universeIn, setBoolIn);
-		this.universe = universeIn;
-	}
-
 	@Override
 	public Set union(Set other, boolean secondCall) {
-		if (!secondCall) {
-			return other.union(this, true);
-		} else {
-			boolean[] otherBool = ((Subset) other).getSetBool();
-			if (otherBool.length != this.setBool.length) {
-				throw new RuntimeException("Error: Different universes.");
+		if(other instanceof Universe) {
+			return this.universe;
+		}
+//		if (!secondCall) {
+//			return other.union(this, true);
+//		} else {
+		boolean isEmpty = true;
+		boolean[] otherBool = ((Subset) other).getSetBool();
+		if (otherBool.length != this.setBool.length) {
+			throw new RuntimeException("Error: Different universes.");
+		}
+		boolean[] newSetBool = new boolean[setBool.length];
+		for (int i = 0; i < this.setBool.length; i++) {
+			if (setBool[i] || otherBool[i]) {
+				isEmpty = false;
+				newSetBool[i] = true;
+			} else {
+				newSetBool[i] = false;
 			}
-			boolean[] newSetBool = new boolean[setBool.length];
-			for (int i = 0; i < this.setBool.length; i++) {
-				if (setBool[i] || otherBool[i]) {
-					newSetBool[i] = true;
-				} else {
-					newSetBool[i] = false;
-				}
-			}
+		}
+		if(!isEmpty) {
 			Subset unionSet = new Subset(universe, newSetBool);
 			return unionSet;
 		}
+		return null;
+//		}
 	}
 
 	@Override
 	public Set intersection(Set other, boolean secondCall) {
-		if (!secondCall) {
-			return other.union(this, true);
-		} else {
-			boolean[] otherBool = ((Subset) other).getSetBool();
-			if (otherBool.length != this.setBool.length) {
-				throw new RuntimeException("Error: Different universes.");
-			}
-			boolean[] newSetBool = new boolean[setBool.length];
-			for (int i = 0; i < this.setBool.length; i++) {
-				if (setBool[i] && otherBool[i]) {
-					newSetBool[i] = true;
-				} else {
-					newSetBool[i] = false;
-				}
-			}
-			Subset intersectionSet = new Subset(universe, newSetBool);
-			return intersectionSet;
+		if(other instanceof Universe) {
+			return this;
 		}
+		boolean intersected = false;
+//		if (!secondCall) {
+//			return other.union(this, true);
+//		} else {
+		boolean[] otherBool = ((Subset) other).getSetBool();
+		if (otherBool.length != this.setBool.length) {
+			throw new RuntimeException("Error: Different universes.");
+		}
+		boolean[] newSetBool = new boolean[setBool.length];
+		for (int i = 0; i < this.setBool.length; i++) {
+			if (setBool[i] && otherBool[i]) {
+				newSetBool[i] = true;
+				intersected = true;
+			} else {
+				newSetBool[i] = false;
+			}
+		}
+		if(intersected) {
+			Subset intersectionSet = new Subset(universe, newSetBool);
+			return intersectionSet;	
+		} 
+		return null;
+		
+//		}
 	}
 
 	@Override
 	public Set complement() {
-		// TODO Auto-generated method stub
+		boolean isUnivers = true;
+		boolean[] boolSet = new boolean[this.getSetBool().length];
+		SLNode universeNode = this.universe.getSetList().getHead();
+		for(int i = 0; i < this.setBool.length; i++) {
+			if(!setBool[i]) {
+				isUnivers = false;
+				boolSet[i] = true;
+			}
+			universeNode = universeNode.getNext();
+		}
+		if(!isUnivers) {
+			Subset complementSet = new Subset(this.universe, boolSet);
+			return complementSet;
+		}
 		return null;
-	}
-	
+	}	
 }

@@ -1,11 +1,16 @@
 package Sets;
 
+import LinkedLists.SinglyLinkedList;
+
 /**
  * This class represents the universe.
  * @author H
  */
 public class Universe extends Set {
 
+	/**
+	 * @param setInput
+	 */
 	public Universe(final String[] setInput) {
 		super(setInput);
 	}

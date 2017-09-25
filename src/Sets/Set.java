@@ -14,15 +14,6 @@ public abstract class Set {
 	private SinglyLinkedList setList;
 
 	/**
-	 * Getter for setList.
-	 * 
-	 * @return setList as SLL.
-	 */
-	public SinglyLinkedList getSetList() {
-		return setList;
-	}
-
-	/**
 	 * Constructor.
 	 * 
 	 * @param universe
@@ -49,6 +40,15 @@ public abstract class Set {
 			SLNUI = SLNUI.getNext();
 		}
 		this.setList = setListBuilder;
+	}
+	
+	/**
+	 * Getter for setList.
+	 * 
+	 * @return setList as SLL.
+	 */
+	public SinglyLinkedList getSetList() {
+		return setList;
 	}
 
 	/**
