@@ -4,7 +4,7 @@ import LinkedLists.SinglyLinkedList;
 
 /**
  * This class represents the universe.
- * 
+ *
  * @author H
  */
 /**
@@ -14,33 +14,23 @@ import LinkedLists.SinglyLinkedList;
 public class Universe extends Set {
 
 	/**
+	 * Constructor in case the list of elements is ready.
+	 *
+	 * @param list
+	 *            previously built list of elements.
+	 */
+	public Universe(final SinglyLinkedList list) {
+		super(list);
+	}
+
+	/**
 	 * Constructor that passes the setInput as string array.
-	 * 
+	 *
 	 * @param setInput
 	 *            in the form of a string array.
 	 */
 	public Universe(final String[] setInput) {
 		super(setInput);
-	}
-
-	/**
-	 * Constructor in case the list of elements is ready.
-	 * 
-	 * @param list
-	 *            previously built list of elements.
-	 */
-	public Universe(SinglyLinkedList list) {
-		super(list);
-	}
-
-	@Override
-	public Set union(Set other) {
-		return new Universe(this.getSetList());
-	}
-
-	@Override
-	public Set intersection(Set other) {
-		return other;
 	}
 
 	@Override
@@ -54,12 +44,22 @@ public class Universe extends Set {
 	 * universe, the method returns nulll as "phi".
 	 */
 	@Override
-	public Set difference(Set other) {
+	public Set difference(final Set other) {
 		if (other instanceof Universe) {
 			return null;
 		} else {
 			return other.complement();
 		}
+	}
+
+	@Override
+	public Set intersection(final Set other) {
+		return other;
+	}
+
+	@Override
+	public Set union(final Set other) {
+		return new Universe(this.getSetList());
 	}
 
 }
