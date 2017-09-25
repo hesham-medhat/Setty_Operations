@@ -1,7 +1,5 @@
 package Sets;
 
-import java.util.Arrays;
-
 import LinkedLists.SinglyLinkedList;
 
 /**
@@ -16,13 +14,21 @@ import LinkedLists.SinglyLinkedList;
 public class Universe extends Set {
 
 	/**
+	 * Constructor that passes the setInput as string array.
+	 * 
 	 * @param setInput
+	 *            in the form of a string array.
 	 */
 	public Universe(final String[] setInput) {
 		super(setInput);
-		
 	}
-	
+
+	/**
+	 * Constructor in case the list of elements is ready.
+	 * 
+	 * @param list
+	 *            previously built list of elements.
+	 */
 	public Universe(SinglyLinkedList list) {
 		super(list);
 	}
@@ -42,16 +48,14 @@ public class Universe extends Set {
 		return null;
 	}
 
-	
-	/** 
-	 * This is an additional method that returns the difference between the universe a
-	 * and another subset.
-	 * if the parameter (Set) is instance of universe,
-	 * the method returns nulll as "phi".
+	/**
+	 * This is an additional method that returns the difference between the
+	 * universe a and another subset. if the parameter (Set) is instance of
+	 * universe, the method returns nulll as "phi".
 	 */
 	@Override
 	public Set difference(Set other) {
-		if(other instanceof Universe) {
+		if (other instanceof Universe) {
 			return null;
 		} else {
 			return other.complement();
