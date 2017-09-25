@@ -18,6 +18,11 @@ public class Subset extends Set {
 	 * The universe that this subset belongs to.
 	 */
 	private Universe universe;
+	
+	/**
+	 * 
+	 */
+	private int numOfTrues; 
 
 	/**
 	 * Constructor that calls the super "Set" constructor to build the SLL of
@@ -42,6 +47,10 @@ public class Subset extends Set {
 		super(universeIn, setBoolIn);
 		this.universe = universeIn;
 	}
+	
+	public Subset(final SinglyLinkedList list) {
+		super(list);
+	}
 
 	/**
 	 * Getter for setBool.
@@ -63,6 +72,7 @@ public class Subset extends Set {
 	private void makeBoolSet(SinglyLinkedList universe, SinglyLinkedList set) {
 		SLNode iSet = set.getHead();
 		int index;
+		int counter = 0;
 		setBool = new boolean[universe.getSize()];
 		while (iSet != null) {
 			index = universe.contains(iSet.getElement());
@@ -70,11 +80,21 @@ public class Subset extends Set {
 				throw new RuntimeException("An element in the set doesn't exist in the universe!");
 			} else {
 				setBool[index] = true;
+				counter++;
 				iSet = iSet.getNext();
 			}
 		}
+		this.numOfTrues = counter;
 	}
 
+	
+	/**
+	 * @return
+	 */
+	public int getNumberOfElements() {
+		return this.numOfTrues;
+	}
+	
 	@Override
 	public Set union(Set other) {
 		if (other instanceof Universe) {
@@ -133,21 +153,38 @@ public class Subset extends Set {
 
 	@Override
 	public Set complement() {
-		boolean isUnivers = true;
+		boolean isUniverse = true;
 		boolean[] boolSet = new boolean[this.getSetBool().length];
 		SLNode universeNode = this.universe.getSetList().getHead();
 		for (int i = 0; i < this.setBool.length; i++) {
 			if (!setBool[i]) {
-				isUnivers = false;
+				isUniverse = false;
 				boolSet[i] = true;
 			}
 			universeNode = universeNode.getNext();
 		}
-		if (!isUnivers) {
+		if (!isUniverse) {
 			Subset complementSet = new Subset(this.universe, boolSet);
 			return complementSet;
 		} else {
 			return null;
 		}
+	}
+
+	@Override
+	public Set difference(Set other) {
+		boolean[] otherBool = ((Subset) other).getSetBool();
+		if(other instanceof Universe) {
+			return null;
+		} else {
+			boolean[] diffArr = new boolean[this.setBool.length];
+			for(int i = 0; i < setBool.length; i++ ) {
+				if(setBool[i] && !otherBool[i]) {
+					diffArr[i] = true;
+				} 
+			}
+		}
+		Subset difference = new Subset(this.universe, otherBool);
+		return difference;
 	}
 }

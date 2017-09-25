@@ -42,6 +42,11 @@ public abstract class Set {
 		this.setList = setListBuilder;
 	}
 	
+	public Set(SinglyLinkedList list) {
+		this.setList = list;
+	}
+	
+
 	/**
 	 * Getter for setList.
 	 * 
@@ -86,5 +91,7 @@ public abstract class Set {
 	 * @return complement of a set
 	 */
 	public abstract Set complement();
+	
+	public abstract Set difference(Set other);
 
 }
