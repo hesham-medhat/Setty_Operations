@@ -100,9 +100,9 @@ public abstract class Set {
 	 *            array.
 	 * @return SLL generated that has the same elements as the input array.
 	 */
-	private SinglyLinkedList makeSLL(final Object[] setArr) {
+	private SinglyLinkedList makeSLL(final String[] setArr) {
 		final SinglyLinkedList setSLL = new SinglyLinkedList();
-		for (final Object element : setArr) {
+		for (final String element : setArr) {
 			setSLL.add(element);
 		}
 		return setSLL;
