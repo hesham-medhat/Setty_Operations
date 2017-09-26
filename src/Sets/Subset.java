@@ -81,27 +81,24 @@ public class Subset extends Set {
 	@Override
 	public Set difference(final Set other) {
 		final boolean[] otherBool = ((Subset) other).getSetBool();
-		if (other instanceof Universe) {
+		boolean isEmpty = true;
+		if (other instanceof Universe || this.getSetList().equals(((Subset)other).getSetList())) {
 			return null;
 		} else {
 			final boolean[] diffArr = new boolean[this.setBool.length];
 			for (int i = 0; i < setBool.length; i++) {
 				if (setBool[i] && !otherBool[i]) {
+					isEmpty = false;
 					diffArr[i] = true;
 				}
 			}
-			final Subset difference = new Subset(this.universe, diffArr);
-			return difference;
+			if(!isEmpty) {
+				final Subset difference = new Subset(this.universe, diffArr);
+				return difference;
+			} else {
+				return null;
+			}
 		}
-	}
-
-	/**
-	 * Getter for setBool.
-	 *
-	 * @return setBool
-	 */
-	public boolean[] getSetBool() {
-		return setBool;
 	}
 
 	@Override
@@ -182,4 +179,14 @@ public class Subset extends Set {
 			}
 		}
 	}
+	
+	/**
+	 * Getter for setBool.
+	 *
+	 * @return setBool
+	 */
+	public boolean[] getSetBool() {
+		return setBool;
+	}
+
 }

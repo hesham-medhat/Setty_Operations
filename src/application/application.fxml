@@ -20,28 +20,29 @@
       </Label>
       <Button fx:id="addSet" layoutX="292.0" layoutY="62.0" mnemonicParsing="false" onAction="#addSet" text="Add Set" />
       <Separator layoutX="20.0" layoutY="199.0" prefHeight="9.0" prefWidth="433.0" />
-      <Spinner fx:id="Set1" editable="true" layoutX="20.0" layoutY="247.0" prefHeight="25.0" prefWidth="77.0" />
-      <Spinner fx:id="Set2" editable="true" layoutX="364.0" layoutY="247.0" prefHeight="25.0" prefWidth="77.0" />
-      <Label alignment="CENTER" layoutX="20.0" layoutY="217.0" prefHeight="21.0" prefWidth="77.0" text="First Set">
+      <Spinner fx:id="Set1" editable="true" layoutX="20.0" layoutY="235.0" prefHeight="25.0" prefWidth="77.0" />
+      <Spinner fx:id="Set2" editable="true" layoutX="364.0" layoutY="235.0" prefHeight="25.0" prefWidth="77.0" />
+      <Label alignment="CENTER" layoutX="20.0" layoutY="207.0" prefHeight="21.0" prefWidth="77.0" text="First Set">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="364.0" layoutY="217.0" prefHeight="21.0" prefWidth="77.0" text="Second Set">
+      <Label alignment="CENTER" layoutX="364.0" layoutY="207.0" prefHeight="21.0" prefWidth="77.0" text="Second Set">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Button fx:id="intersection" layoutX="292.0" layoutY="247.0" mnemonicParsing="false" onAction="#onClickButton" prefHeight="25.0" prefWidth="25.0" text="∩" textOverrun="CLIP">
+      <Button fx:id="intersection" layoutX="280.0" layoutY="235.0" mnemonicParsing="false" onAction="#onClickButton" prefHeight="25.0" prefWidth="25.0" text="∩" textOverrun="CLIP">
          <font>
             <Font name="Algerian" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="complement" layoutX="112.0" layoutY="247.0" mnemonicParsing="false" onAction="#onClickButton" text="Complement" />
-      <Button fx:id="difference" layoutX="260.0" layoutY="247.0" mnemonicParsing="false" onAction="#onClickButton" text="-" />
-      <Button fx:id="union" layoutX="221.0" layoutY="247.0" mnemonicParsing="false" onAction="#onClickButton" text="∪" />
+      <Button fx:id="complement1" layoutX="20.0" layoutY="262.0" mnemonicParsing="false" onAction="#onClickButton" prefHeight="25.0" prefWidth="85.0" text="Complement" />
+      <Button fx:id="difference" layoutX="221.0" layoutY="235.0" mnemonicParsing="false" onAction="#onClickButton" prefHeight="25.0" prefWidth="28.0" text="-" />
+      <Button fx:id="union" layoutX="163.0" layoutY="235.0" mnemonicParsing="false" onAction="#onClickButton" text="∪" />
       <Label fx:id="feedbackAS" layoutX="364.0" layoutY="66.0" prefHeight="17.0" prefWidth="77.0" />
       <TextArea fx:id="output" layoutX="15.0" layoutY="292.0" prefHeight="89.0" prefWidth="433.0" />
       <Label layoutX="16.0" layoutY="390.0" prefHeight="17.0" prefWidth="433.0" text="select 0 for universe" />
+      <Button fx:id="complement2" layoutX="360.0" layoutY="262.0" mnemonicParsing="false" onAction="#onClickButton" prefHeight="25.0" prefWidth="85.0" text="Complement" />
    </children>
 </AnchorPane>

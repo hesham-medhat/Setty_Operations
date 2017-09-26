@@ -12,6 +12,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import sun.text.normalizer.CharTrie.FriendAgent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -36,12 +37,6 @@ public class Main extends Application {
 	private Spinner<Integer> Set1;
 	@FXML
 	private Spinner<Integer> Set2;
-
-	private static Stage primarySharedStage;
-
-	private static Universe mUniverse;
-	private static SinglyLinkedList allSets;
-
 	@FXML
 	private Button addUniverse;
 	@FXML
@@ -53,7 +48,9 @@ public class Main extends Application {
 	@FXML
 	private Label feedbackAS;
 	@FXML
-	private Button complement;
+	private Button complement1;
+	@FXML
+	private Button complement2;
 	@FXML
 	private Button union;
 	@FXML
@@ -62,6 +59,11 @@ public class Main extends Application {
 	private Button difference;
 	@FXML
 	private TextArea output;
+
+	private static Stage primarySharedStage;
+
+	private static Universe mUniverse;
+	private static SinglyLinkedList allSets;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -79,6 +81,16 @@ public class Main extends Application {
 		}
 	}
 
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		launch(args);
+	}
+	
+	/**
+	 * @param nextClicked
+	 */
 	public void nextClicked(ActionEvent nextClicked) {
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("application.fxml"));
@@ -94,10 +106,9 @@ public class Main extends Application {
 		}
 	}
 
-	public static void main(String[] args) {
-		launch(args);
-	}
-
+	/**
+	 * @param addSet
+	 */
 	public void addSet(ActionEvent addSet) {
 		Subset subset = new Subset(mUniverse, getSetList(newSetText));
 		allSets.add(subset);
@@ -110,6 +121,9 @@ public class Main extends Application {
 		Set2.setValueFactory(valueFactory2);
 	}
 
+	/**
+	 * @param addUniverse
+	 */
 	public void addUniverse(ActionEvent addUniverse) {
 		String[] setInput = getSetList(universeText);
 		if (setInput != null) {
@@ -144,35 +158,51 @@ public class Main extends Application {
 		}
 	}
 
+	/**
+	 * @param e
+	 */
 	public void onClickButton(ActionEvent e) {
 		Set firstSet;
 		Set secondSet;
 
-		if (e.getSource() == complement) {
-			firstSet = (Set) allSets.get(getSetIndex(Set1));
+		if (e.getSource() == complement1) {
+			firstSet = (Set) allSets.get(Set1.getValue());
 			firstSet = firstSet.complement();
-			if(firstSet != null) {
-				output.setText(firstSet.getSetList().toString());
-			} else {
-				output.setText("Phi - Empty set.");
-			}
+			displaySet(firstSet);
 			
+		}else if (e.getSource() == complement2) {
+				secondSet = (Set) allSets.get(Set2.getValue());
+				secondSet = secondSet.complement();
+				displaySet(secondSet);
+				
 		} else if (e.getSource() == union) {
-			firstSet = (Set) allSets.get(getSetIndex(Set1));
-			secondSet = (Set) allSets.get(getSetIndex(Set2));
+			firstSet = (Set) allSets.get(Set1.getValue());
+			secondSet = (Set) allSets.get(Set2.getValue());
+			firstSet = firstSet.union(secondSet);
+			displaySet(firstSet);
 			
 		} else if (e.getSource() == intersection) {
-			firstSet = (Set) allSets.get(getSetIndex(Set1));
-			secondSet = (Set) allSets.get(getSetIndex(Set2));
+			firstSet = (Set) allSets.get(Set1.getValue());
+			secondSet = (Set) allSets.get(Set2.getValue());
+			firstSet = firstSet.intersection(secondSet);
+			displaySet(firstSet);
 			
 		} else { // difference
-			firstSet = (Set) allSets.get(getSetIndex(Set1));
-			
+			firstSet = (Set) allSets.get(Set1.getValue());
+			secondSet = (Set) allSets.get(Set2.getValue());
+			firstSet = firstSet.difference(secondSet);
+			displaySet(firstSet);
 		}
 	}
-
-	private int getSetIndex(Spinner<Integer> set) {
-		return set.getValue();
+	
+	/**
+	 * @param set
+	 */
+	private void displaySet(Set set) {
+		if(set != null) {
+			output.setText(set.getSetList().toString());
+		} else {
+			output.setText("Phi - Empty set.");
+		}
 	}
-
 }
