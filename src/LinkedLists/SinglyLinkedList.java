@@ -240,4 +240,17 @@ public class SinglyLinkedList implements ILinkedList {
 		return sublist;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		SLNode head = getHead();
+		for(int i = 0; i < this.size; i++) {
+			builder.append(head.getElement().toString() + " - ");
+			head = head.getNext();
+		}
+		String string = builder.toString().trim();
+		string = string.substring(0, string.length() - 1);
+		return string;
+	}
+
 }

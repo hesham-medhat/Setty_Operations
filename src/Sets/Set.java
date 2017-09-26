@@ -41,7 +41,7 @@ public abstract class Set {
 	 * @param universeIn
 	 *            universe of the set.
 	 * @param setBoolIn
-	 *            boolean array of existance of elements from universe.
+	 *            boolean array of existence of elements from universe.
 	 */
 	public Set(final Universe universeIn, final boolean[] setBoolIn) {
 		final SinglyLinkedList setListBuilder = new SinglyLinkedList();
@@ -79,7 +79,7 @@ public abstract class Set {
 	 * @return setList as SLL.
 	 */
 	public SinglyLinkedList getSetList() {
-		return setList;
+		return this.setList;
 	}
 
 	/**

@@ -8,7 +8,7 @@
 <AnchorPane prefHeight="368.0" prefWidth="436.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Main">
    <children>
       <Button fx:id="addUniverse" layoutX="332.0" layoutY="137.0" mnemonicParsing="false" onAction="#addUniverse" text="Add Universe" />
-      <TextField fx:id="universeText" layoutX="27.0" layoutY="114.0" prefHeight="70.0" prefWidth="295.0" promptText="Enter comma-separated universe of strnigs." />
+      <TextField fx:id="universeText" layoutX="27.0" layoutY="114.0" prefHeight="70.0" prefWidth="295.0" promptText="Enter comma-separated universe of strings." />
       <Label fx:id="feedbackAU" layoutX="332.0" layoutY="167.0" prefHeight="17.0" prefWidth="87.0" textFill="RED" />
       <Button fx:id="next" disable="true" layoutX="198.0" layoutY="281.0" mnemonicParsing="false" onAction="#nextClicked" text="Next" />
    </children>

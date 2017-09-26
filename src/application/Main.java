@@ -2,12 +2,13 @@ package application;
 
 import java.io.IOException;
 
-
 import LinkedLists.SinglyLinkedList;
+import Sets.Set;
 import Sets.Subset;
 import Sets.Universe;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -15,8 +16,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
+import javafx.scene.control.SpinnerValueFactory.ListSpinnerValueFactory;
 import javafx.scene.paint.Paint;
 
 public class Main extends Application {
@@ -27,8 +32,36 @@ public class Main extends Application {
 	private Button next;
 	@FXML
 	private Button addSet;
+	@FXML
+	private Spinner<Integer> Set1;
+	@FXML
+	private Spinner<Integer> Set2;
 
 	private static Stage primarySharedStage;
+
+	private static Universe mUniverse;
+	private static SinglyLinkedList allSets;
+
+	@FXML
+	private Button addUniverse;
+	@FXML
+	private TextField universeText;
+	@FXML
+	private TextField newSetText;
+	@FXML
+	private TextArea SetsListText;
+	@FXML
+	private Label feedbackAS;
+	@FXML
+	private Button complement;
+	@FXML
+	private Button union;
+	@FXML
+	private Button intersection;
+	@FXML
+	private Button difference;
+	@FXML
+	private TextArea output;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -39,7 +72,7 @@ public class Main extends Application {
 			primaryStage.setTitle("Setty Operations");
 			primaryStage.setScene(scene);
 			primaryStage.show();
-			//next.setOnAction(e-> nextClicked(e, primaryStage));
+
 		} catch (IOException e) {
 			// Auto-generated catch block
 			e.printStackTrace();
@@ -56,7 +89,7 @@ public class Main extends Application {
 			primarySharedStage.setScene(scene);
 			primarySharedStage.show();
 		} catch (IOException e1) {
-			//Auto-generated catch block
+			// Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -65,29 +98,22 @@ public class Main extends Application {
 		launch(args);
 	}
 
-
-	private Universe mUniverse;
-	private SinglyLinkedList allSets;
-
-	@FXML
-	private Button addUniverse;
-	@FXML
-	private TextField universeText;
-	@FXML
-	private TextField newSetText;
-	@FXML
-	private TextArea SetsListText;
-
 	public void addSet(ActionEvent addSet) {
 		Subset subset = new Subset(mUniverse, getSetList(newSetText));
 		allSets.add(subset);
-		SetsListText.appendText("Set #" + (allSets.getSize() - 1));
+		SetsListText.appendText("• Set #" + (allSets.getSize() - 1) + "\n" + subset.getSetList().toString() + "\n");
+		SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
+				allSets.getSize() - 1, 0, 1);
+		Set1.setValueFactory(valueFactory);
+		SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
+				allSets.getSize() - 1, 0, 1);
+		Set2.setValueFactory(valueFactory2);
 	}
 
 	public void addUniverse(ActionEvent addUniverse) {
 		String[] setInput = getSetList(universeText);
 		if (setInput != null) {
-			this.mUniverse = new Universe(setInput);
+			mUniverse = new Universe(setInput);
 			allSets = new SinglyLinkedList();
 			allSets.add(mUniverse);
 			feedbackAU.setTextFill(Paint.valueOf("BLUE"));
@@ -118,6 +144,35 @@ public class Main extends Application {
 		}
 	}
 
-	
+	public void onClickButton(ActionEvent e) {
+		Set firstSet;
+		Set secondSet;
+
+		if (e.getSource() == complement) {
+			firstSet = (Set) allSets.get(getSetIndex(Set1));
+			firstSet = firstSet.complement();
+			if(firstSet != null) {
+				output.setText(firstSet.getSetList().toString());
+			} else {
+				output.setText("Phi - Empty set.");
+			}
+			
+		} else if (e.getSource() == union) {
+			firstSet = (Set) allSets.get(getSetIndex(Set1));
+			secondSet = (Set) allSets.get(getSetIndex(Set2));
+			
+		} else if (e.getSource() == intersection) {
+			firstSet = (Set) allSets.get(getSetIndex(Set1));
+			secondSet = (Set) allSets.get(getSetIndex(Set2));
+			
+		} else { // difference
+			firstSet = (Set) allSets.get(getSetIndex(Set1));
+			
+		}
+	}
+
+	private int getSetIndex(Spinner<Integer> set) {
+		return set.getValue();
+	}
 
 }

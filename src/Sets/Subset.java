@@ -54,8 +54,8 @@ public class Subset extends Set {
 	 */
 	public Subset(final Universe universeIn, final String[] setInput) {
 		super(setInput);
-		makeBoolSet(universeIn.getSetList(), this.getSetList());
 		this.universe = universeIn;
+		makeBoolSet(universeIn.getSetList(), getSetList());
 	}
 
 	@Override
