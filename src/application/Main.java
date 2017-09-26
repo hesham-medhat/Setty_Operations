@@ -8,11 +8,9 @@ import Sets.Subset;
 import Sets.Universe;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
-import sun.text.normalizer.CharTrie.FriendAgent;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -21,8 +19,6 @@ import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.SpinnerValueFactory.IntegerSpinnerValueFactory;
-import javafx.scene.control.SpinnerValueFactory.ListSpinnerValueFactory;
 import javafx.scene.paint.Paint;
 
 public class Main extends Application {
@@ -93,15 +89,17 @@ public class Main extends Application {
 	 */
 	public void nextClicked(ActionEvent nextClicked) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("application.fxml"));
+			FXMLLoader loader = new FXMLLoader(
+			        getClass().getResource("application.fxml")
+			);
+			loader.setController(this);
+			Parent root = (Parent) loader.load();
+			//Parent root = FXMLLoader.load(getClass().getResource("application.fxml"));
 			Scene scene = new Scene(root);
-			if (primarySharedStage == null) {
-				System.out.println("Aywa null");
-			}
+			SetsListText.appendText("• Universe\n" + mUniverse.getSetList().toString() + "\n");
 			primarySharedStage.setScene(scene);
 			primarySharedStage.show();
 		} catch (IOException e1) {
-			// Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -110,15 +108,24 @@ public class Main extends Application {
 	 * @param addSet
 	 */
 	public void addSet(ActionEvent addSet) {
-		Subset subset = new Subset(mUniverse, getSetList(newSetText));
-		allSets.add(subset);
-		SetsListText.appendText("• Set #" + (allSets.getSize() - 1) + "\n" + subset.getSetList().toString() + "\n");
-		SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
-				allSets.getSize() - 1, 0, 1);
-		Set1.setValueFactory(valueFactory);
-		SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
-				allSets.getSize() - 1, 0, 1);
-		Set2.setValueFactory(valueFactory2);
+		Subset subset;
+		try {
+			feedbackAS.setText("");
+			subset = new Subset(mUniverse, getSetList(newSetText));
+			allSets.add(subset);
+			SetsListText.appendText("• Set #" + (allSets.getSize() - 1) + "\n" + subset.getSetList().toString() + "\n");
+			SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
+					allSets.getSize() - 1, 0, 1);
+			Set1.setValueFactory(valueFactory);
+			SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
+					allSets.getSize() - 1, 0, 1);
+			Set2.setValueFactory(valueFactory2);
+			newSetText.setText("");
+		} catch (RuntimeException e) {
+			feedbackAS.setTextFill(Paint.valueOf("RED"));
+			feedbackAS.setText(e.getMessage());
+		}
+	
 	}
 
 	/**
@@ -136,7 +143,6 @@ public class Main extends Application {
 		} else {
 			feedbackAU.setText("Empty universe!");
 		}
-		// stop this button.
 	}
 
 	/**
@@ -149,6 +155,7 @@ public class Main extends Application {
 	 */
 	private static String[] getSetList(TextField textInput) {
 		String inputString = textInput.getText();
+		textInput.setText("");
 		inputString.trim();
 		if (inputString.length() > 0) {
 			String[] setString = inputString.split(",");

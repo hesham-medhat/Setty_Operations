@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="450.0" prefWidth="469.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Main">
+<AnchorPane prefHeight="450.0" prefWidth="469.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextArea fx:id="SetsListText" editable="false" layoutX="18.0" layoutY="101.0" prefHeight="89.0" prefWidth="433.0" />
+      <TextArea fx:id="SetsListText" editable="false" layoutX="18.0" layoutY="110.0" prefHeight="80.0" prefWidth="433.0" />
       <TextField fx:id="newSetText" layoutX="18.0" layoutY="62.0" prefHeight="25.0" prefWidth="252.0" promptText="Enter comma-separated set of strings." />
       <Label layoutX="14.0" layoutY="21.0" prefHeight="17.0" prefWidth="149.0" text="Enter a new set">
          <font>
@@ -20,14 +20,14 @@
       </Label>
       <Button fx:id="addSet" layoutX="292.0" layoutY="62.0" mnemonicParsing="false" onAction="#addSet" text="Add Set" />
       <Separator layoutX="20.0" layoutY="199.0" prefHeight="9.0" prefWidth="433.0" />
-      <Spinner fx:id="Set1" editable="true" layoutX="20.0" layoutY="235.0" prefHeight="25.0" prefWidth="77.0" />
+      <Spinner fx:id="Set1" editable="true" layoutX="24.0" layoutY="235.0" prefHeight="25.0" prefWidth="77.0" />
       <Spinner fx:id="Set2" editable="true" layoutX="364.0" layoutY="235.0" prefHeight="25.0" prefWidth="77.0" />
-      <Label alignment="CENTER" layoutX="20.0" layoutY="207.0" prefHeight="21.0" prefWidth="77.0" text="First Set">
+      <Label alignment="CENTER" layoutX="24.0" layoutY="215.0" prefHeight="21.0" prefWidth="77.0" text="First Set">
          <font>
             <Font size="15.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="364.0" layoutY="207.0" prefHeight="21.0" prefWidth="77.0" text="Second Set">
+      <Label alignment="CENTER" layoutX="364.0" layoutY="215.0" prefHeight="21.0" prefWidth="77.0" text="Second Set">
          <font>
             <Font size="15.0" />
          </font>
@@ -40,8 +40,8 @@
       <Button fx:id="complement1" layoutX="20.0" layoutY="262.0" mnemonicParsing="false" onAction="#onClickButton" prefHeight="25.0" prefWidth="85.0" text="Complement" />
       <Button fx:id="difference" layoutX="221.0" layoutY="235.0" mnemonicParsing="false" onAction="#onClickButton" prefHeight="25.0" prefWidth="28.0" text="-" />
       <Button fx:id="union" layoutX="163.0" layoutY="235.0" mnemonicParsing="false" onAction="#onClickButton" text="∪" />
-      <Label fx:id="feedbackAS" layoutX="364.0" layoutY="66.0" prefHeight="17.0" prefWidth="77.0" />
-      <TextArea fx:id="output" layoutX="15.0" layoutY="292.0" prefHeight="89.0" prefWidth="433.0" />
+      <Label fx:id="feedbackAS" layoutX="17.0" layoutY="87.0" prefHeight="17.0" prefWidth="433.0" />
+      <TextArea fx:id="output" layoutX="15.0" layoutY="301.0" prefHeight="80.0" prefWidth="433.0" />
       <Label layoutX="16.0" layoutY="390.0" prefHeight="17.0" prefWidth="433.0" text="select 0 for universe" />
       <Button fx:id="complement2" layoutX="360.0" layoutY="262.0" mnemonicParsing="false" onAction="#onClickButton" prefHeight="25.0" prefWidth="85.0" text="Complement" />
    </children>

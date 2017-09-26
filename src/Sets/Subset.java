@@ -55,7 +55,11 @@ public class Subset extends Set {
 	public Subset(final Universe universeIn, final String[] setInput) {
 		super(setInput);
 		this.universe = universeIn;
-		makeBoolSet(universeIn.getSetList(), getSetList());
+		try {
+			makeBoolSet(universeIn.getSetList(), getSetList());
+		} catch (RuntimeException e) {
+			throw e;
+		}
 	}
 
 	@Override
@@ -128,30 +132,7 @@ public class Subset extends Set {
 			}
 		}
 	}
-
-	/**
-	 * Constructs the setBool to be ready for operations.
-	 *
-	 * @param universe
-	 *            in a SLL form.
-	 * @param set
-	 *            in a SLL form.
-	 */
-	private void makeBoolSet(final SinglyLinkedList universe, final SinglyLinkedList set) {
-		SLNode iSet = set.getHead();
-		int index;
-		setBool = new boolean[universe.getSize()];
-		while (iSet != null) {
-			index = universe.contains(iSet.getElement());
-			if (index == -1) {
-				throw new RuntimeException("An element in the set doesn't exist in the universe!");
-			} else {
-				setBool[index] = true;
-				iSet = iSet.getNext();
-			}
-		}
-	}
-
+	
 	@Override
 	public Set union(final Set other) {
 		if (other instanceof Universe) {
@@ -179,6 +160,30 @@ public class Subset extends Set {
 			}
 		}
 	}
+
+	/**
+	 * Constructs the setBool to be ready for operations.
+	 *
+	 * @param universe
+	 *            in a SLL form.
+	 * @param set
+	 *            in a SLL form.
+	 */
+	private void makeBoolSet(final SinglyLinkedList universe, final SinglyLinkedList set) {
+		SLNode iSet = set.getHead();
+		int index;
+		setBool = new boolean[universe.getSize()];
+		while (iSet != null) {
+			index = universe.contains(iSet.getElement());
+			if (index == -1) {
+				throw new RuntimeException("An element in the set doesn't exist in the universe!");
+			} else {
+				setBool[index] = true;
+				iSet = iSet.getNext();
+			}
+		}
+	}
+
 	
 	/**
 	 * Getter for setBool.
