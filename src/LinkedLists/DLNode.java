@@ -2,6 +2,7 @@ package LinkedLists;
 
 /**
  * Doubly node.
+ * 
  * @author H
  */
 public class DLNode {
@@ -21,13 +22,15 @@ public class DLNode {
 
 	/**
 	 * Constructor.
-	 * @param elementI	input element.
-	 * @param nextI	input next node.
-	 * @param previousI	input previous node.
+	 * 
+	 * @param elementI
+	 *            input element.
+	 * @param nextI
+	 *            input next node.
+	 * @param previousI
+	 *            input previous node.
 	 */
-	public DLNode(final Object elementI
-			, final DLNode nextI
-			, final DLNode previousI) {
+	public DLNode(final Object elementI, final DLNode nextI, final DLNode previousI) {
 		this.element = elementI;
 		this.next = nextI;
 		this.previous = previousI;
@@ -35,6 +38,7 @@ public class DLNode {
 
 	/**
 	 * Returns the element of the node.
+	 * 
 	 * @return element getter.
 	 *
 	 */
@@ -44,6 +48,7 @@ public class DLNode {
 
 	/**
 	 * Gets the next node.
+	 * 
 	 * @return next node.
 	 */
 	public DLNode getNext() {
@@ -52,6 +57,7 @@ public class DLNode {
 
 	/**
 	 * Returns the previous node.
+	 * 
 	 * @return the previous node.
 	 */
 	public DLNode getPrevious() {
@@ -60,9 +66,10 @@ public class DLNode {
 
 	/**
 	 * Sets the element of the node with the given object.
-	 * @param elementI parameter.
-	 * This is the object which will be assigned
-	 * as the element of the node.
+	 * 
+	 * @param elementI
+	 *            parameter. This is the object which will be assigned as the
+	 *            element of the node.
 	 */
 	public void setElement(final Object elementI) {
 		this.element = elementI;
@@ -70,7 +77,9 @@ public class DLNode {
 
 	/**
 	 * Sets the reference to the next node.
-	 * @param nextI DL node.
+	 * 
+	 * @param nextI
+	 *            DL node.
 	 */
 	public void setNext(final DLNode nextI) {
 		this.next = nextI;
@@ -78,7 +87,9 @@ public class DLNode {
 
 	/**
 	 * Sets the reference to the previous node.
-	 * @param previousI node.
+	 * 
+	 * @param previousI
+	 *            node.
 	 */
 	public void setPrevious(final DLNode previousI) {
 		this.previous = previousI;

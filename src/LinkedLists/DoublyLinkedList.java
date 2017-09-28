@@ -1,9 +1,8 @@
 package LinkedLists;
 
-import LinkedLists.ILinkedList;
-
 /**
  * Doubly Linked List Implementation.
+ * 
  * @author H
  *
  */
@@ -22,7 +21,8 @@ public class DoublyLinkedList implements ILinkedList {
 	 */
 	private int size;
 
-	/**Constructor.
+	/**
+	 * Constructor.
 	 *
 	 */
 	public DoublyLinkedList() {
@@ -38,16 +38,14 @@ public class DoublyLinkedList implements ILinkedList {
 			throw new IndexOutOfBoundsException();
 		}
 		if (isEmpty()) {
-			final DLNode firstNode =
-					new DLNode(element, null, null);
+			final DLNode firstNode = new DLNode(element, null, null);
 			head = firstNode;
 			tail = firstNode;
 			size++;
 			return;
 		}
 		if (index == 0) {
-			final DLNode newHead =
-					new DLNode(element, head, null);
+			final DLNode newHead = new DLNode(element, head, null);
 			head = newHead;
 			size++;
 			return;
@@ -57,8 +55,7 @@ public class DoublyLinkedList implements ILinkedList {
 			add(element);
 			return;
 		}
-		final DLNode newNode =
-				new DLNode(element, null, null);
+		final DLNode newNode = new DLNode(element, null, null);
 		final DLNode previous = getNode(index - 1);
 		previous.getNext().setPrevious(newNode);
 		newNode.setNext(previous.getNext());
@@ -70,15 +67,13 @@ public class DoublyLinkedList implements ILinkedList {
 	@Override
 	public void add(final Object element) {
 		if (isEmpty()) {
-			final DLNode firstNode =
-					new DLNode(element, null, null);
+			final DLNode firstNode = new DLNode(element, null, null);
 			head = firstNode;
 			tail = firstNode;
 			size++;
 			return;
 		}
-		final DLNode lastNode =
-				new DLNode(element, null, null);
+		final DLNode lastNode = new DLNode(element, null, null);
 		lastNode.setPrevious(tail);
 		tail.setNext(lastNode);
 		size++;
@@ -120,6 +115,7 @@ public class DoublyLinkedList implements ILinkedList {
 
 	/**
 	 * Gets a node at a specified index.
+	 * 
 	 * @return head of the list.
 	 */
 	public DLNode getHead() {
@@ -128,8 +124,10 @@ public class DoublyLinkedList implements ILinkedList {
 
 	/**
 	 * Gets the node at specified index.
-	 * @param index	given index.
-	 * @return	that node.
+	 * 
+	 * @param index
+	 *            given index.
+	 * @return that node.
 	 */
 	public DLNode getNode(final int index) {
 
@@ -148,6 +146,7 @@ public class DoublyLinkedList implements ILinkedList {
 
 	/**
 	 * Gets the size.
+	 * 
 	 * @return size of the list.
 	 */
 	public int getSize() {
@@ -156,6 +155,7 @@ public class DoublyLinkedList implements ILinkedList {
 
 	/**
 	 * Getter.
+	 * 
 	 * @return tail of the list.
 	 */
 	public DLNode getTail() {
@@ -207,7 +207,9 @@ public class DoublyLinkedList implements ILinkedList {
 
 	/**
 	 * Setter for head.
-	 * @param headI	input.
+	 * 
+	 * @param headI
+	 *            input.
 	 */
 	public void setHead(final DLNode headI) {
 		this.head = headI;
@@ -215,7 +217,9 @@ public class DoublyLinkedList implements ILinkedList {
 
 	/**
 	 * Setter for size.
-	 * @param sizeI	input.
+	 * 
+	 * @param sizeI
+	 *            input.
 	 */
 	public void setSize(final int sizeI) {
 		this.size = sizeI;
@@ -223,7 +227,9 @@ public class DoublyLinkedList implements ILinkedList {
 
 	/**
 	 * Setter for tail.
-	 * @param tailI	input.
+	 * 
+	 * @param tailI
+	 *            input.
 	 */
 	public void setTail(final DLNode tailI) {
 		this.tail = tailI;
@@ -235,12 +241,9 @@ public class DoublyLinkedList implements ILinkedList {
 	}
 
 	@Override
-	public ILinkedList sublist(final int fromIndex
-			, final int toIndex) {
+	public ILinkedList sublist(final int fromIndex, final int toIndex) {
 
-		if (fromIndex > size || toIndex > size
-				|| fromIndex < 0 || toIndex < 0
-				|| fromIndex > toIndex) {
+		if (fromIndex > size || toIndex > size || fromIndex < 0 || toIndex < 0 || fromIndex > toIndex) {
 			throw new IndexOutOfBoundsException();
 		}
 		DLNode nodeToCopy = getNode(fromIndex);

@@ -1,9 +1,8 @@
 package LinkedLists;
 
-import LinkedLists.ILinkedList;
-
 /**
  * SLL implementation.
+ * 
  * @author H
  *
  */
@@ -110,6 +109,7 @@ public class SinglyLinkedList implements ILinkedList {
 
 	/**
 	 * Gets the head.
+	 * 
 	 * @return head of the list.
 	 */
 	public SLNode getHead() {
@@ -118,8 +118,10 @@ public class SinglyLinkedList implements ILinkedList {
 
 	/**
 	 * Gets the node at specified index.
-	 * @param index	given index.
-	 * @return	that node.
+	 * 
+	 * @param index
+	 *            given index.
+	 * @return that node.
 	 */
 	public SLNode getNode(final int index) {
 
@@ -138,6 +140,7 @@ public class SinglyLinkedList implements ILinkedList {
 
 	/**
 	 * Gets the size.
+	 * 
 	 * @return size of the list.
 	 */
 	public int getSize() {
@@ -146,6 +149,7 @@ public class SinglyLinkedList implements ILinkedList {
 
 	/**
 	 * Getter.
+	 * 
 	 * @return tail of the list.
 	 */
 	public SLNode getTail() {
@@ -196,7 +200,9 @@ public class SinglyLinkedList implements ILinkedList {
 
 	/**
 	 * Setter.
-	 * @param headI	input head.
+	 * 
+	 * @param headI
+	 *            input head.
 	 */
 	public void setHead(final SLNode headI) {
 		this.head = headI;
@@ -204,7 +210,9 @@ public class SinglyLinkedList implements ILinkedList {
 
 	/**
 	 * Setter.
-	 * @param sizeI	input size.
+	 * 
+	 * @param sizeI
+	 *            input size.
 	 */
 	public void setSize(final int sizeI) {
 		this.size = sizeI;
@@ -212,7 +220,9 @@ public class SinglyLinkedList implements ILinkedList {
 
 	/**
 	 * Setter.
-	 * @param tailI	input tail.
+	 * 
+	 * @param tailI
+	 *            input tail.
 	 */
 	public void setTail(final SLNode tailI) {
 		this.tail = tailI;
@@ -225,9 +235,7 @@ public class SinglyLinkedList implements ILinkedList {
 
 	@Override
 	public ILinkedList sublist(final int fromIndex, final int toIndex) {
-		if (fromIndex > size || toIndex > size
-				|| fromIndex < 0 || toIndex < 0
-				|| fromIndex > toIndex) {
+		if (fromIndex > size || toIndex > size || fromIndex < 0 || toIndex < 0 || fromIndex > toIndex) {
 			throw new IndexOutOfBoundsException();
 		}
 		SLNode nodeToCopy = getNode(fromIndex);
@@ -242,9 +250,9 @@ public class SinglyLinkedList implements ILinkedList {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder();
+		final StringBuilder builder = new StringBuilder();
 		SLNode head = getHead();
-		for(int i = 0; i < this.size; i++) {
+		for (int i = 0; i < this.size; i++) {
 			builder.append(head.getElement().toString() + " - ");
 			head = head.getNext();
 		}

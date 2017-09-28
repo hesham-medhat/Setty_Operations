@@ -20,10 +20,9 @@ public interface ILinkedList {
 
 	/**
 	 *
-	 * Returns the found element's index if this list contains 
-	 * an element with the same value
-	 * as the specified element o.
-	 * Returns -1 if the element is not found.
+	 * Returns the found element's index if this list contains an element with
+	 * the same value as the specified element o. Returns -1 if the element is
+	 * not found.
 	 *
 	 */
 

@@ -90,6 +90,28 @@ public abstract class Set {
 	public abstract Set intersection(Set other);
 
 	/**
+	 * Auxiliary function used for detecting whether the input element is unique
+	 * or a duplicate before adding it to the SLL.
+	 *
+	 * @param element
+	 *            to be added to the list.
+	 * @param setSLL
+	 *            the list.
+	 * @return
+	 */
+	private boolean isUnique(final Object element, final SinglyLinkedList setSLL) {
+		SLNode iteratorNode = setSLL.getHead();
+		while (iteratorNode != null) {
+			if (iteratorNode.getElement().equals(element)) {// Found duplicate
+				return false;
+			} else {
+				iteratorNode = iteratorNode.getNext();
+			}
+		}
+		return true;// No duplicates found.
+	}
+
+	/**
 	 * Creates a SinglyLinkedList of the given array.
 	 *
 	 * @param setArr
@@ -101,33 +123,14 @@ public abstract class Set {
 		final SinglyLinkedList setSLL = new SinglyLinkedList();
 		for (String element : setArr) {
 			element = element.trim();
-			if (isUnique(element, setSLL) && !element.equals("")) {// Checks if it is unique first.
+			if (isUnique(element, setSLL) && !element.equals("")) {// Checks if
+																	// it is
+																	// unique
+																	// first.
 				setSLL.add(element);
 			}
 		}
 		return setSLL;
-	}
-
-	/**
-	 * Auxiliary function used for detecting whether the input element is unique
-	 * or a duplicate before adding it to the SLL.
-	 * 
-	 * @param element
-	 *            to be added to the list.
-	 * @param setSLL
-	 *            the list.
-	 * @return
-	 */
-	private boolean isUnique(final Object element, final SinglyLinkedList setSLL) {
-		SLNode iteratorNode = setSLL.getHead();
-		while (iteratorNode != null) {
-			if (iteratorNode.getElement().equals(element)){// Found duplicate
-				return false;
-			} else {
-				iteratorNode = iteratorNode.getNext();
-			}
-		}
-		return true;// No duplicates found.
 	}
 
 	/**

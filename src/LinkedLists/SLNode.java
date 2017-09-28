@@ -2,6 +2,7 @@ package LinkedLists;
 
 /**
  * Singly node class.
+ * 
  * @author H
  *
  */
@@ -18,8 +19,11 @@ public class SLNode {
 
 	/**
 	 * Constructor.
-	 * @param elementI	input element.
-	 * @param nextI	input next.
+	 * 
+	 * @param elementI
+	 *            input element.
+	 * @param nextI
+	 *            input next.
 	 */
 	public SLNode(final Object elementI, final SLNode nextI) {
 		this.element = elementI;
@@ -28,6 +32,7 @@ public class SLNode {
 
 	/**
 	 * Getter.
+	 * 
 	 * @return element.
 	 */
 	public Object getElement() {
@@ -36,6 +41,7 @@ public class SLNode {
 
 	/**
 	 * Getter.
+	 * 
 	 * @return next node.
 	 */
 	public SLNode getNext() {
@@ -44,7 +50,9 @@ public class SLNode {
 
 	/**
 	 * Setter.
-	 * @param elementI element input.
+	 * 
+	 * @param elementI
+	 *            element input.
 	 */
 	public void setElement(final Object elementI) {
 		this.element = elementI;
@@ -52,7 +60,9 @@ public class SLNode {
 
 	/**
 	 * Setter.
-	 * @param nextI	next input node.
+	 * 
+	 * @param nextI
+	 *            next input node.
 	 */
 	public void setNext(final SLNode nextI) {
 		this.next = nextI;

@@ -57,7 +57,7 @@ public class Subset extends Set {
 		this.universe = universeIn;
 		try {
 			makeBoolSet(universeIn.getSetList(), getSetList());
-		} catch (RuntimeException e) {
+		} catch (final RuntimeException e) {
 			throw e;
 		}
 	}
@@ -84,7 +84,7 @@ public class Subset extends Set {
 
 	@Override
 	public Set difference(final Set other) {
-		if (other instanceof Universe || this.getSetList().equals((other).getSetList())) {
+		if (other instanceof Universe || this.getSetList().equals(other.getSetList())) {
 			return null;
 		} else {
 			final boolean[] otherBool = ((Subset) other).getSetBool();
@@ -96,13 +96,22 @@ public class Subset extends Set {
 					diffArr[i] = true;
 				}
 			}
-			if(!isEmpty) {
+			if (!isEmpty) {
 				final Subset difference = new Subset(this.universe, diffArr);
 				return difference;
 			} else {
 				return null;
 			}
 		}
+	}
+
+	/**
+	 * Getter for setBool.
+	 *
+	 * @return setBool
+	 */
+	public boolean[] getSetBool() {
+		return setBool;
 	}
 
 	@Override
@@ -124,34 +133,6 @@ public class Subset extends Set {
 			if (intersected) {
 				final Subset intersectionSet = new Subset(universe, newSetBool);
 				return intersectionSet;
-			} else {
-				return null;
-			}
-		}
-	}
-	
-	@Override
-	public Set union(final Set other) {
-		if (other instanceof Universe) {
-			return this.universe;
-		} else {
-			boolean isEmpty = true;
-			final boolean[] otherBool = ((Subset) other).getSetBool();
-			if (otherBool.length != this.setBool.length) {
-				throw new RuntimeException("Error: Different universes.");
-			}
-			final boolean[] newSetBool = new boolean[setBool.length];
-			for (int i = 0; i < this.setBool.length; i++) {
-				if (setBool[i] || otherBool[i]) {
-					isEmpty = false;
-					newSetBool[i] = true;
-				} else {
-					newSetBool[i] = false;
-				}
-			}
-			if (!isEmpty) {
-				final Subset unionSet = new Subset(universe, newSetBool);
-				return unionSet;
 			} else {
 				return null;
 			}
@@ -181,14 +162,32 @@ public class Subset extends Set {
 		}
 	}
 
-	
-	/**
-	 * Getter for setBool.
-	 *
-	 * @return setBool
-	 */
-	public boolean[] getSetBool() {
-		return setBool;
+	@Override
+	public Set union(final Set other) {
+		if (other instanceof Universe) {
+			return this.universe;
+		} else {
+			boolean isEmpty = true;
+			final boolean[] otherBool = ((Subset) other).getSetBool();
+			if (otherBool.length != this.setBool.length) {
+				throw new RuntimeException("Error: Different universes.");
+			}
+			final boolean[] newSetBool = new boolean[setBool.length];
+			for (int i = 0; i < this.setBool.length; i++) {
+				if (setBool[i] || otherBool[i]) {
+					isEmpty = false;
+					newSetBool[i] = true;
+				} else {
+					newSetBool[i] = false;
+				}
+			}
+			if (!isEmpty) {
+				final Subset unionSet = new Subset(universe, newSetBool);
+				return unionSet;
+			} else {
+				return null;
+			}
+		}
 	}
 
 }
