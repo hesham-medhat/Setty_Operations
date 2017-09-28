@@ -175,29 +175,34 @@ public class Main extends Application {
 		if (e.getSource() == complement1) {
 			firstSet = (Set) allSets.get(Set1.getValue());
 			firstSet = firstSet.complement();
+			output.setText("First set's complement:\n");
 			displaySet(firstSet);
 			
 		}else if (e.getSource() == complement2) {
-				secondSet = (Set) allSets.get(Set2.getValue());
-				secondSet = secondSet.complement();
-				displaySet(secondSet);
-				
+			secondSet = (Set) allSets.get(Set2.getValue());
+			secondSet = secondSet.complement();
+			output.setText("Second set's complement:\n");
+			displaySet(secondSet);
+			
 		} else if (e.getSource() == union) {
 			firstSet = (Set) allSets.get(Set1.getValue());
 			secondSet = (Set) allSets.get(Set2.getValue());
 			firstSet = firstSet.union(secondSet);
+			output.setText("Union of first set and second set:\n");
 			displaySet(firstSet);
 			
 		} else if (e.getSource() == intersection) {
 			firstSet = (Set) allSets.get(Set1.getValue());
 			secondSet = (Set) allSets.get(Set2.getValue());
 			firstSet = firstSet.intersection(secondSet);
+			output.setText("Intersection of first set and second set:\n");
 			displaySet(firstSet);
 			
 		} else { // difference
 			firstSet = (Set) allSets.get(Set1.getValue());
 			secondSet = (Set) allSets.get(Set2.getValue());
 			firstSet = firstSet.difference(secondSet);
+			output.setText("Difference between first set and second set:\n");
 			displaySet(firstSet);
 		}
 	}
@@ -207,9 +212,9 @@ public class Main extends Application {
 	 */
 	private void displaySet(Set set) {
 		if(set != null) {
-			output.setText(set.getSetList().toString());
+			output.appendText(set.getSetList().toString());
 		} else {
-			output.setText("Phi - Empty set.");
+			output.appendText("Phi - Empty set.");
 		}
 	}
 }
