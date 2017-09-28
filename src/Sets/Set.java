@@ -99,8 +99,9 @@ public abstract class Set {
 	 */
 	private SinglyLinkedList makeSLL(final String[] setArr) {
 		final SinglyLinkedList setSLL = new SinglyLinkedList();
-		for (final String element : setArr) {
-			if (isUnique(element, setSLL)) {// Checks if it is unique first.
+		for (String element : setArr) {
+			element = element.trim();
+			if (isUnique(element, setSLL) && !element.equals("")) {// Checks if it is unique first.
 				setSLL.add(element);
 			}
 		}
@@ -108,7 +109,7 @@ public abstract class Set {
 	}
 
 	/**
-	 * Auxillary function used for detecting whether the input element is unique
+	 * Auxiliary function used for detecting whether the input element is unique
 	 * or a duplicate before adding it to the SLL.
 	 * 
 	 * @param element
@@ -120,7 +121,7 @@ public abstract class Set {
 	private boolean isUnique(final Object element, final SinglyLinkedList setSLL) {
 		SLNode iteratorNode = setSLL.getHead();
 		while (iteratorNode != null) {
-			if (iteratorNode.getElement() == element) {// Found duplicate
+			if (iteratorNode.getElement().equals(element)){// Found duplicate
 				return false;
 			} else {
 				iteratorNode = iteratorNode.getNext();

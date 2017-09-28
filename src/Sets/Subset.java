@@ -84,11 +84,11 @@ public class Subset extends Set {
 
 	@Override
 	public Set difference(final Set other) {
-		final boolean[] otherBool = ((Subset) other).getSetBool();
-		boolean isEmpty = true;
-		if (other instanceof Universe || this.getSetList().equals(((Subset)other).getSetList())) {
+		if (other instanceof Universe || this.getSetList().equals((other).getSetList())) {
 			return null;
 		} else {
+			final boolean[] otherBool = ((Subset) other).getSetBool();
+			boolean isEmpty = true;
 			final boolean[] diffArr = new boolean[this.setBool.length];
 			for (int i = 0; i < setBool.length; i++) {
 				if (setBool[i] && !otherBool[i]) {
@@ -112,9 +112,6 @@ public class Subset extends Set {
 		} else {
 			boolean intersected = false;
 			final boolean[] otherBool = ((Subset) other).getSetBool();
-			if (otherBool.length != this.setBool.length) {
-				throw new RuntimeException("Error: Different universes.");
-			}
 			final boolean[] newSetBool = new boolean[setBool.length];
 			for (int i = 0; i < this.setBool.length; i++) {
 				if (setBool[i] && otherBool[i]) {

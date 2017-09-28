@@ -109,23 +109,27 @@ public class Main extends Application {
 	 */
 	public void addSet(ActionEvent addSet) {
 		Subset subset;
-		try {
-			feedbackAS.setText("");
-			subset = new Subset(mUniverse, getSetList(newSetText));
-			allSets.add(subset);
-			SetsListText.appendText("• Set #" + (allSets.getSize() - 1) + "\n" + subset.getSetList().toString() + "\n");
-			SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
-					allSets.getSize() - 1, 0, 1);
-			Set1.setValueFactory(valueFactory);
-			SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
-					allSets.getSize() - 1, 0, 1);
-			Set2.setValueFactory(valueFactory2);
-			newSetText.setText("");
-		} catch (RuntimeException e) {
+		feedbackAS.setText("");
+		if(!newSetText.getText().equals("")) {
+			try {
+				subset = new Subset(mUniverse, getSetList(newSetText));
+				allSets.add(subset);
+				SetsListText.appendText("• Set #" + (allSets.getSize() - 1) + "\n" + subset.getSetList().toString() + "\n");
+				SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
+						allSets.getSize() - 1, 0, 1);
+				Set1.setValueFactory(valueFactory);
+				SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
+						allSets.getSize() - 1, 0, 1);
+				Set2.setValueFactory(valueFactory2);
+				newSetText.setText("");
+			} catch (RuntimeException e) {
+				feedbackAS.setTextFill(Paint.valueOf("RED"));
+				feedbackAS.setText(e.getMessage());
+			}
+		} else {
 			feedbackAS.setTextFill(Paint.valueOf("RED"));
-			feedbackAS.setText(e.getMessage());
+			feedbackAS.setText("Empty set!");
 		}
-	
 	}
 
 	/**
@@ -150,13 +154,12 @@ public class Main extends Application {
 	 * This method scan user's input and reformat it into a SLL representing set
 	 * of elements.
 	 * 
-	 * @param scan
-	 *            Scanner used to scan input inserted by the user.
-	 * @return SLL of the inserted list.
+	 * @param TextField
+	 *            from which we take user's input.
+	 * @return array of Strings, will be used to make the new set.
 	 */
-	private static String[] getSetList(TextField textInput) {
+	 static String[] getSetList(TextField textInput) {
 		String inputString = textInput.getText();
-		textInput.setText("");
 		inputString.trim();
 		if (inputString.length() > 0) {
 			String[] setString = inputString.split(",");
@@ -203,7 +206,7 @@ public class Main extends Application {
 			firstSet = (Set) allSets.get(Set1.getValue());
 			secondSet = (Set) allSets.get(Set2.getValue());
 			firstSet = firstSet.difference(secondSet);
-			output.setText("Difference between first set and second set:\n");
+			output.setText("Difference of first set from second set:\n");
 			displaySet(firstSet);
 		}
 	}
