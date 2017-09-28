@@ -58,8 +58,7 @@ public abstract class Set {
 	/**
 	 * Finds the rest of the elements in the universe not existing in the set.
 	 *
-	 * @return complement of a set
-	 * Returns null if the output set is empty.
+	 * @return complement of a set Returns null if the output set is empty.
 	 */
 	public abstract Set complement();
 
@@ -68,8 +67,7 @@ public abstract class Set {
 	 *
 	 * @param other
 	 *            input set.
-	 * @return the difference.
-	 * Returns null if the output set is empty.
+	 * @return the difference. Returns null if the output set is empty.
 	 */
 	public abstract Set difference(Set other);
 
@@ -87,8 +85,7 @@ public abstract class Set {
 	 *
 	 * @param other
 	 *            input set.
-	 * @return intersection set.
-	 * Returns null if the output set is empty.
+	 * @return intersection set. Returns null if the output set is empty.
 	 */
 	public abstract Set intersection(Set other);
 
@@ -103,9 +100,33 @@ public abstract class Set {
 	private SinglyLinkedList makeSLL(final String[] setArr) {
 		final SinglyLinkedList setSLL = new SinglyLinkedList();
 		for (final String element : setArr) {
-			setSLL.add(element);
+			if (isUnique(element, setSLL)) {// Checks if it is unique first.
+				setSLL.add(element);
+			}
 		}
 		return setSLL;
+	}
+
+	/**
+	 * Auxillary function used for detecting whether the input element is unique
+	 * or a duplicate before adding it to the SLL.
+	 * 
+	 * @param element
+	 *            to be added to the list.
+	 * @param setSLL
+	 *            the list.
+	 * @return
+	 */
+	private boolean isUnique(final Object element, final SinglyLinkedList setSLL) {
+		SLNode iteratorNode = setSLL.getHead();
+		while (iteratorNode != null) {
+			if (iteratorNode.getElement() == element) {// Found duplicate
+				return false;
+			} else {
+				iteratorNode = iteratorNode.getNext();
+			}
+		}
+		return true;// No duplicates found.
 	}
 
 	/**
@@ -113,8 +134,7 @@ public abstract class Set {
 	 *
 	 * @param other
 	 *            input set.
-	 * @return union set.
-	 * Returns null if the output set is empty.
+	 * @return union set. Returns null if the output set is empty.
 	 */
 	public abstract Set union(Set other);
 

@@ -129,7 +129,8 @@ public class Main extends Application {
 	}
 
 	/**
-	 * @param addUniverse
+	 * Adds the universe.
+	 * @param addUniverse the event triggered
 	 */
 	public void addUniverse(ActionEvent addUniverse) {
 		String[] setInput = getSetList(universeText);
