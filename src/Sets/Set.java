@@ -23,13 +23,10 @@ public abstract class Set {
 		this.setList = list;
 	}
 
+
 	/**
-	 * Constructor.
-	 *
-	 * @param universe
-	 *            in a SLL form.
-	 * @param setList
-	 *            in a SLL form.
+	 * Main constructor when reading input.
+	 * @param setInput the input array of strings.
 	 */
 	public Set(final String[] setInput) {
 		this.setList = makeSLL(setInput);
@@ -97,7 +94,7 @@ public abstract class Set {
 	 *            to be added to the list.
 	 * @param setSLL
 	 *            the list.
-	 * @return
+	 * @return true if it is unique and false otherwise.
 	 */
 	private boolean isUnique(final Object element, final SinglyLinkedList setSLL) {
 		SLNode iteratorNode = setSLL.getHead();
