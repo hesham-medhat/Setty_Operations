@@ -44,35 +44,6 @@ public class Main extends Application {
 	 */
 	private static SinglyLinkedList allSets;
 
-	/**
-	 * This method scan user's input and reformat it into a SLL representing set
-	 * of elements.
-	 *
-	 * @param TextField
-	 *            from which we take user's input.
-	 * @return array of Strings, will be used to make the new set.
-	 */
-	static String[] getSetList(final TextField textInput) {
-		final String inputString = textInput.getText();
-		inputString.trim();
-		if (inputString.length() > 0) {
-			final String[] setString = inputString.split(",");
-			return setString;
-		} else {
-			return null;
-		}
-	}
-
-	/**
-	 * Main function.
-	 * 
-	 * @param args
-	 *            arguments for main.
-	 */
-	public static void main(final String[] args) {
-		Application.launch(args);
-	}
-
 	@FXML
 	private Label feedbackAU;
 	@FXML
@@ -106,6 +77,26 @@ public class Main extends Application {
 	@FXML
 	private TextArea output;
 
+	
+	/**
+	 * This method scan user's input and reformat it into a SLL representing set
+	 * of elements.
+	 *
+	 * @param TextField
+	 *            from which we take user's input.
+	 * @return array of Strings, will be used to make the new set.
+	 */
+	static String[] getSetList(final TextField textInput) {
+		final String inputString = textInput.getText();
+		inputString.trim();
+		if (inputString.length() > 0) {
+			final String[] setString = inputString.split(",");
+			return setString;
+		} else {
+			return null;
+		}
+	}
+	
 	/**
 	 * Adds a set into the list of all sets.
 	 * 
@@ -117,16 +108,11 @@ public class Main extends Application {
 		feedbackAS.setText("");
 		if (!newSetText.getText().equals("")) {
 			try {
-				subset = new Subset(Main.mUniverse, Main.getSetList(newSetText));
+				subset = new Subset(mUniverse, getSetList(newSetText));
 				Main.allSets.add(subset);
 				SetsListText.appendText(
-						"• Set #" + (Main.allSets.getSize() - 1) + "\n" + subset.getSetList().toString() + "\n");
-				final SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
-						Main.allSets.getSize() - 1, 0, 1);
-				Set1.setValueFactory(valueFactory);
-				final SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
-						Main.allSets.getSize() - 1, 0, 1);
-				Set2.setValueFactory(valueFactory2);
+						"• Set #" + (allSets.getSize() - 1) + "\n" + subset.getSetList().toString() + "\n");
+				updateSpinner(0, 0);
 				newSetText.setText("");
 			} catch (final RuntimeException e) {
 				feedbackAS.setTextFill(Paint.valueOf("RED"));
@@ -145,11 +131,11 @@ public class Main extends Application {
 	 *            the event triggered
 	 */
 	public void addUniverse(final ActionEvent addUniverse) {
-		final String[] setInput = Main.getSetList(universeText);
+		final String[] setInput = getSetList(universeText);
 		if (setInput != null) {
-			Main.mUniverse = new Universe(setInput);
-			Main.allSets = new SinglyLinkedList();
-			Main.allSets.add(Main.mUniverse);
+			mUniverse = new Universe(setInput);
+			allSets = new SinglyLinkedList();
+			allSets.add(mUniverse);
 			feedbackAU.setTextFill(Paint.valueOf("BLUE"));
 			feedbackAU.setText("Success!");
 			next.setDisable(false);
@@ -166,7 +152,10 @@ public class Main extends Application {
 	 */
 	private void displaySet(final Set set) {
 		if (set != null) {
-			output.appendText("(Set #" + allSets.getSize() + ") " +  set.getSetList().toString());
+			allSets.add(set);
+			SetsListText.appendText(
+					"• Set #" + (allSets.getSize() - 1) + "\n" + set.getSetList().toString() + "\n");
+			output.appendText("(Set #" + (allSets.getSize() - 1) + ") " +  set.getSetList().toString());
 		} else {
 			output.appendText("Phi - Empty set.");
 		}
@@ -183,10 +172,8 @@ public class Main extends Application {
 			final FXMLLoader loader = new FXMLLoader(getClass().getResource("application.fxml"));
 			loader.setController(this);
 			final Parent root = (Parent) loader.load();
-			// Parent root =
-			// FXMLLoader.load(getClass().getResource("application.fxml"));
 			final Scene scene = new Scene(root);
-			SetsListText.appendText("• Universe\n" + Main.mUniverse.getSetList().toString() + "\n");
+			SetsListText.appendText("• Universe\n" + mUniverse.getSetList().toString() + "\n");
 			Main.primarySharedStage.setScene(scene);
 			Main.primarySharedStage.show();
 		} catch (final IOException e1) {
@@ -202,55 +189,56 @@ public class Main extends Application {
 	 *            event when button clicked.
 	 */
 	public void onClickButton(final ActionEvent e) {
-		Set firstSet = null;
+		Set firstSet ;
 		Set secondSet;
-
-		if (e.getSource() == complement1) {
-			firstSet = (Set) Main.allSets.get(Set1.getValue());
+		
+		if (e.getSource().equals(complement1)) {
+			firstSet = (Set) allSets.get(Set1.getValue());
 			firstSet = firstSet.complement();
-			output.setText("(Set #" + allSets.getSize() + ") " +  "First set's complement:\n");
+			output.setText("First set's complement:\n");
 			displaySet(firstSet);
-
-		} else if (e.getSource() == complement2) {
-			secondSet = (Set) Main.allSets.get(Set2.getValue());
+			updateSpinner(Set1.getValue(), Set2.getValue());
+			
+		} else if (e.getSource().equals(complement2)) {
+			secondSet = (Set) allSets.get(Set2.getValue());
 			secondSet = secondSet.complement();
-			output.setText("(Set #" + allSets.getSize() + ") " +  "Second set's complement:\n");
 			displaySet(secondSet);
-
-		} else if (e.getSource() == union) {
-			firstSet = (Set) Main.allSets.get(Set1.getValue());
-			secondSet = (Set) Main.allSets.get(Set2.getValue());
+			updateSpinner(Set1.getValue(), Set2.getValue());
+			
+		} else if (e.getSource().equals(union)){
+			firstSet = (Set) allSets.get(Set1.getValue());
+			secondSet = (Set) allSets.get(Set2.getValue());
 			firstSet = firstSet.union(secondSet);
 			output.setText("Union of first set and second set:\n");
 			displaySet(firstSet);
-
-		} else if (e.getSource() == intersection) {
-			firstSet = (Set) Main.allSets.get(Set1.getValue());
-			secondSet = (Set) Main.allSets.get(Set2.getValue());
+			updateSpinner(Set1.getValue(), Set2.getValue());
+			
+		} else if (e.getSource().equals(intersection)) {
+			firstSet = (Set) allSets.get(Set1.getValue());
+			secondSet = (Set) allSets.get(Set2.getValue());
 			firstSet = firstSet.intersection(secondSet);
-			output.setText("Intersection of first set and second set:\n");
 			displaySet(firstSet);
-
-		} else { // difference
+			updateSpinner(Set1.getValue(), Set2.getValue());
+			
+		} else if (e.getSource().equals(difference)) { 
 			firstSet = (Set) Main.allSets.get(Set1.getValue());
 			secondSet = (Set) Main.allSets.get(Set2.getValue());
 			firstSet = firstSet.difference(secondSet);
 			output.setText("Difference of first set from second set:\n");
 			displaySet(firstSet);
-		}
-		if (firstSet != null) { 
-			Main.allSets.add(firstSet);
-			SetsListText.appendText(
-					"• Set #" + (Main.allSets.getSize() - 1) + "\n" + firstSet.getSetList().toString() + "\n");
-			final SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
-					Main.allSets.getSize() - 1, 0, 1);
-			Set1.setValueFactory(valueFactory);
-			final SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
-					Main.allSets.getSize() - 1, 0, 1);
-			Set2.setValueFactory(valueFactory2);
+			
 		} else {
-			return;//Nothing to add. We got an empty set as result.
+			return;
 		}
+	}
+	
+	public void updateSpinner(int set1Index, int set2Index) {
+		final SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
+				allSets.getSize() - 1, set1Index, 1);
+		Set1.setValueFactory(valueFactory);
+		final SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
+				allSets.getSize() - 1, set2Index, 1);
+		Set2.setValueFactory(valueFactory2);
 	}
 
 	@Override
@@ -267,5 +255,15 @@ public class Main extends Application {
 			// Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Main function.
+	 * 
+	 * @param args
+	 *            arguments for main.
+	 */
+	public static void main(final String[] args) {
+		Application.launch(args);
 	}
 }
