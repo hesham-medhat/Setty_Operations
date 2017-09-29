@@ -217,6 +217,7 @@ public class Main extends Application {
 			firstSet = (Set) allSets.get(Set1.getValue());
 			secondSet = (Set) allSets.get(Set2.getValue());
 			firstSet = firstSet.intersection(secondSet);
+			output.setText("Intersection of first set and second set:\n");
 			displaySet(firstSet);
 			updateSpinner(Set1.getValue(), Set2.getValue());
 			
