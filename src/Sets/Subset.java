@@ -169,9 +169,6 @@ public class Subset extends Set {
 		} else {
 			boolean isEmpty = true;
 			final boolean[] otherBool = ((Subset) other).getSetBool();
-			if (otherBool.length != this.setBool.length) {
-				throw new RuntimeException("Error: Different universes.");
-			}
 			final boolean[] newSetBool = new boolean[setBool.length];
 			for (int i = 0; i < this.setBool.length; i++) {
 				if (setBool[i] || otherBool[i]) {
