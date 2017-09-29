@@ -166,7 +166,7 @@ public class Main extends Application {
 	 */
 	private void displaySet(final Set set) {
 		if (set != null) {
-			output.appendText(set.getSetList().toString());
+			output.appendText("(Set #" + allSets.getSize() + ") " +  set.getSetList().toString());
 		} else {
 			output.appendText("Phi - Empty set.");
 		}
@@ -196,24 +196,25 @@ public class Main extends Application {
 
 	/**
 	 * Activates the specified operation on the set(s).
+	 * Also adds output set to the set of lists.
 	 * 
 	 * @param e
 	 *            event when button clicked.
 	 */
 	public void onClickButton(final ActionEvent e) {
-		Set firstSet;
+		Set firstSet = null;
 		Set secondSet;
 
 		if (e.getSource() == complement1) {
 			firstSet = (Set) Main.allSets.get(Set1.getValue());
 			firstSet = firstSet.complement();
-			output.setText("First set's complement:\n");
+			output.setText("(Set #" + allSets.getSize() + ") " +  "First set's complement:\n");
 			displaySet(firstSet);
 
 		} else if (e.getSource() == complement2) {
 			secondSet = (Set) Main.allSets.get(Set2.getValue());
 			secondSet = secondSet.complement();
-			output.setText("Second set's complement:\n");
+			output.setText("(Set #" + allSets.getSize() + ") " +  "Second set's complement:\n");
 			displaySet(secondSet);
 
 		} else if (e.getSource() == union) {
@@ -236,6 +237,19 @@ public class Main extends Application {
 			firstSet = firstSet.difference(secondSet);
 			output.setText("Difference of first set from second set:\n");
 			displaySet(firstSet);
+		}
+		if (firstSet != null) { 
+			Main.allSets.add(firstSet);
+			SetsListText.appendText(
+					"• Set #" + (Main.allSets.getSize() - 1) + "\n" + firstSet.getSetList().toString() + "\n");
+			final SpinnerValueFactory<Integer> valueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
+					Main.allSets.getSize() - 1, 0, 1);
+			Set1.setValueFactory(valueFactory);
+			final SpinnerValueFactory<Integer> valueFactory2 = new SpinnerValueFactory.IntegerSpinnerValueFactory(0,
+					Main.allSets.getSize() - 1, 0, 1);
+			Set2.setValueFactory(valueFactory2);
+		} else {
+			return;//Nothing to add. We got an empty set as result.
 		}
 	}
 

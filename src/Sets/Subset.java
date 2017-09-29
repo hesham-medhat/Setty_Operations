@@ -40,6 +40,7 @@ public class Subset extends Set {
 	 */
 	public Subset(final Universe universeIn, final boolean[] setBoolIn) {
 		super(universeIn, setBoolIn);
+		this.setBool = setBoolIn;
 		this.universe = universeIn;
 	}
 
